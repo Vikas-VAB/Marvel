@@ -1,0 +1,24 @@
+---
+# tasks file for word_config~
+- name: Create directory
+  command: mkdir -p /var/www/wordpress
+  become: yes
+
+- name: Download WordPress
+  get_url: url=https://www.wordpress.org/latest.tar.gz dest=/var/www/wordpress/wordpress.tar.gz validate_certs=no
+ 
+
+- name: Extract WordPress
+  command: "tar xzf /var/www/wordpress/wordpress.tar.gz -C /var/www/html"
+
+- name: copy config file
+  copy: src=files/wp-config-sample.php dest=/var/www/html/wordpress/wp-config.php mode=0644
+
+- name: Update Apache configuration
+  become: yes
+  lineinfile: 
+    dest=/etc/apache2/sites-enabled/000-default.conf 
+    regexp="(.)+DocumentRoot /var/www/html"
+    line="DocumentRoot /var/www/html/wordpress"
+  notify:
+    - restart apache

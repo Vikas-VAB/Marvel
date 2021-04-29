@@ -1,0 +1,6 @@
+---
+# vars file for wprole
+# vars for mysql 
+wp_mysql_db: wordpress
+wp_mysql_user: vikasb
+wp_mysql_password: Devops@123!@#
