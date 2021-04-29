@@ -1,0 +1,19 @@
+---
+- name: install apache
+  apt: name=apache2 update_cache=yes state=present
+  become: yes
+
+- name: install mysql
+  apt: name=mysql-server update_cache=yes state=present
+  become: yes
+
+- name: install php
+  apt: name=php state=present
+- name: install libapache2
+  apt: name=libapache2-mod-php
+- name: install phpmysql
+  apt: name=php-mysql state=present
+- name: install python
+  apt: name=python3-pymysql state=present
+  become: yes
+

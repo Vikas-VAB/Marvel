@@ -1,0 +1,5 @@
+---
+# tasks file for wprole
+ - import_tasks: lamp.yml
+ - import_tasks: configure.yml
+ - import_tasks: wordpress.yml
