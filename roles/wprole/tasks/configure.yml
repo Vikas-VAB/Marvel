@@ -8,8 +8,8 @@
 - name: create mysql database
   mysql_db: 
         login_unix_socket=/var/run/mysqld/mysqld.sock
-        login_user=root
-        login_password=Devops@123!@#
+        login_user=user
+        login_password=password
         name={{ wp_mysql_db }} 
         state=present
   become: yes
@@ -17,8 +17,8 @@
 - name: Create Mysql username and password
   mysql_user:
         login_unix_socket=/var/run/mysqld/mysqld.sock
-        login_user=root
-        login_password=Devops@123!@#
+        login_user=user
+        login_password=password
         name={{ wp_mysql_user }}
         password={{ wp_mysql_password }}
         priv=*.*:ALL
