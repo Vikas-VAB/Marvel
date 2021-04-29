@@ -1,0 +1,48 @@
+---
+  - hosts: all
+    become: yes
+    vars:
+        root_pass: "Devops@123!@#"
+    tasks:
+       - name: mysql status
+         service: name=mysql state=started enabled=true
+         become: yes
+
+       - name: update mysql password
+         mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock
+                     login_user=root
+                     login_password={{ root_pass }}
+                     user=root
+                     password={{ root_pass }}
+         become: yes
+
+       - name: secure the root user for hosts
+         mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock
+                     login_user=root
+                     login_password={{ root_pass }}
+                     user=root
+                     password={{ root_pass }}
+                     host={{ item }}
+         loop:
+                 - localhost
+                 - webservers
+         become: yes
+
+       - name: deletes anonymous user
+         mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock
+                     login_user=root
+                     login_password={{ root_pass }}
+                     user=""
+                     host_all=yes
+                     state=absent
+         become: yes
+
+       - name: removes test database
+         mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock
+                     login_user=root
+                     login_password={{ root_pass }}
+                     user=test
+                     state=absent
+         become: yes
+
+
