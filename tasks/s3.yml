@@ -1,0 +1,20 @@
+---
+  - name: Create an S3 bucket
+    aws_s3:
+            aws_access_key: AKIAYOFIZIURMV4IO3M3
+            aws_secret_key: 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
+            bucket: vabbucket
+            permission: public-read-write
+            mode: create
+            region: us-east-2
+
+
+  - name: add file to s3 bucket
+    aws_s3:
+           aws_access_key: AKIAYOFIZIURMV4IO3M3
+           aws_secret_key: 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
+           bucket: vabbucket
+           object: index.html
+           src: files/index.html
+           mode: put
+

@@ -1,0 +1,19 @@
+---
+  - name: launching AWS instance using Ansible
+    ec2:
+       key_name: Vikasab
+       instance_type: t2.micro
+       image: ami-05d72852800cbf29e
+       region: us-east-2
+       wait: yes
+       group: webserver2
+       count: 1
+       vpc_subnet_id: subnet-80df90cc
+       assign_public_ip: yes
+       instance_tags:
+               Name: server2
+       user_data: "{{ lookup('file', 'user_data.sh') }}"
+       aws_access_key: AKIAYOFIZIURMV4IO3M3
+       aws_secret_key: 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
+       instance_profile_name: role1
+
