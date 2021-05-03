@@ -1,0 +1,282 @@
+---
+ - hosts: all
+   tasks:
+
+       - name: install unzip
+         apt:
+            name: unzip
+            state: latest
+         when: ansible_os_family == 'Debian'
+
+       - name: download chrome on ubuntu
+         command: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+         when: ansible_os_family == 'Debian'
+
+       - name: install chrome on ubuntu
+         command: dpkg -i google-chrome-stable_current_amd64.deb 
+         when: ansible_os_family == 'Debian'
+         become: yes
+
+ 
+
+       - name: install firefox on ubuntu
+         apt: 
+            name: firefox
+            state: latest
+         become: yes
+         when: ansible_os_family == 'Debian'
+ 
+
+
+       - name: install thunderbird on ubuntu
+         apt: 
+            name: thunderbird
+            state: latest
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+
+
+       - name: download skype on ubuntu
+         command: wget https://go.skype.com/skypeforlinux-64.deb
+         when: ansible_os_family == 'Debian'
+
+       - name: install skype on ubuntu
+         shell: dpkg -i ./skypeforlinux-64.deb
+         when: ansible_os_family == 'Debian'
+         become: yes
+
+
+       - name: install git packeges
+         apt: 
+            name: git
+            state: latest
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+
+       - name: download openoffice for ubuntu
+         command: wget https://sourceforge.net/projects/openofficeorg.mirror/files/4.1.9/binaries/en-GB/Apache_OpenOffice_4.1.9_Linux_x86-64_install-deb_en-GB.tar.gz/download
+         when: ansible_os_family == 'Debian'
+
+
+       - name: Rename tar file
+         command: mv /root/download /root/openoffice.tar.gz
+         when: ansible_os_family == 'Debian'
+
+       - name: unzip the file
+         command: tar -xvf openoffice.tar.gz
+         when: ansible_os_family == 'Debian'
+
+      
+       - name: install openoffice all packages
+         shell: dpkg -i /root/en-GB/DEBS/*.deb
+         when: ansible_os_family == 'Debian'
+
+
+       - name: install openoffice menus
+         shell: dpkg -i /root/en-GB/DEBS/desktop-integration/*.deb 
+         when: ansible_os_family == 'Debian'
+         become: yes
+
+
+
+       - name: Download packages for Docker-ce-cli
+         shell: wget https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce-cli_19.03.5~3-0~debian-stretch_amd64.deb
+         when: ansible_os_family == 'Debian'
+         become: yes
+
+       - name: install Docker-ce-cli
+         shell: dpkg -i /root/docker-ce-cli_19.03.5~3-0~debian-stretch_amd64.deb
+         when: ansible_os_family == 'Debian'
+         become: yes
+
+       - name: Download deb package for containerd.io
+         shell: wget https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/containerd.io_1.4.4-1_amd64.deb
+         when: ansible_os_family == 'Debian'
+         become: yes
+
+       - name: installing containerd.io
+         shell: dpkg -i containerd.io_1.4.4-1_amd64.deb
+         when: ansible_os_family == 'Debian'
+         become: yes
+
+       - name: Download deb package for docker-ce
+         shell: wget https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/docker-ce_19.03.15~3-0~ubuntu-focal_amd64.deb
+         when: ansible_os_family == 'Debian'
+         become: yes
+
+       - name: installing docker-ce
+         shell: dpkg -i docker-ce_19.03.15~3-0~ubuntu-focal_amd64.deb
+         when: ansible_os_family == 'Debian'
+         become: yes
+
+   
+       - name: dowmload package for Microsoft teams
+         shell: wget https://packages.microsoft.com/repos/ms-teams/pool/main/t/teams/teams_1.3.00.5153_amd64.deb
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+       - name: install teams
+         shell: dpkg -i teams_1.3.00.5153_amd64.deb
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+
+       - name: download file for anydesk
+         shell: wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add -
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+       - name: add repository
+         shell: echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+       - name: install anydesk
+         shell: apt install anydesk
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+       - name: install apache
+         apt: name=apache2 state=present
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+       - name: install mysql
+         apt: 
+             name: mysql-server 
+             state: present
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+       - name: install php
+         apt: name=php state=present
+         become: yes
+         when: ansible_os_family == 'Debian'
+       - name: install libapache2
+         apt: name=libapache2-mod-php
+         become: yes
+         when: ansible_os_family == 'Debian'
+       - name: install phpmysql
+         apt: name=php-mysql state=present
+         when: ansible_os_family == 'Debian'
+       - name: install python
+         apt: name=python3-pymysql state=present
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+
+
+       - name: download chrome on CentOS
+         command: wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+         when: ansible_os_family == 'RedHat'
+
+       - name: install chrome on CentOS
+         command: yum localinstall google-chrome-stable_current_x86_64.rpm -y
+         when: ansible_os_family == 'RedHat'
+         become: yes
+   
+
+
+       - name: download skype on CentOS
+         command: wget https://go.skype.com/skypeforlinux-64.rpm
+         when: ansible_os_family == 'RedHat'
+
+       - name: install skype on CentOS
+         command: yum localinstall ./skypeforlinux-64.rpm -y
+         when: ansible_os_family == 'RedHat'
+         become: yes
+
+# this is for windows
+
+        - name: Install Chocolatey on Windows
+          win_chocolatey: 
+               name: procexp  
+               state: present
+
+       - name: install chrome
+         win_chocolatey: 
+               name: googlechrome 
+               state: present
+         when: ansible_os_family == 'Windows'
+
+       - name: Ensure anydesk.install installed
+         win_chocolatey:
+               name: anydesk.install
+               state: present
+         when: ansible_os_family == 'Windows'
+
+       - name: Ensure putty installed
+         win_chocolatey:
+               name: putty
+               state: present
+         when: ansible_os_family == 'Windows'
+
+
+       - name: Ensure virtualbox installed
+         win_chocolatey:
+               name: virtualbox
+               state: present
+         when: ansible_os_family == 'Windows'
+
+       - name: Ensure openoffice installed
+         win_chocolatey:
+               name: openoffice
+               state: present
+         when: ansible_os_family == 'Windows'
+
+       - name: Ensure skype installed
+         win_chocolatey:
+               name: skype
+               state: present
+         when: ansible_os_family == 'Windows'
+
+       - name: Ensure wamp-server installed
+         win_chocolatey:
+               name: wamp-server
+               state: present
+         when: ansible_os_family == 'Windows'
+
+       - name: Ensure git.install installed
+         win_chocolatey:
+               name: git.install
+               state: present
+         when: ansible_os_family == 'Windows'
+  
+       - name: Ensure microsoft-teams installed
+         win_chocolatey:
+               name: microsoft-teams
+               state: present        
+         when: ansible_os_family == 'Windows'
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         #          - name: check wheather file exits or not
+         #command: test -f google-chrome.list
+         #register: chrome_apt
+
+         #- name: download chrome on ubuntu
+         # command: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+         #when:
+         #   - ansible_os_family == 'Debian'
+         #   - chrome_apt.rc == 1
+
