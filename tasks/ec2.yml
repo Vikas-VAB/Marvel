@@ -13,7 +13,7 @@
        instance_tags:
                Name: server2
        user_data: "{{ lookup('file', 'user_data.sh') }}"
-       aws_access_key: AKIAYOFIZIURMV4IO3M3
-       aws_secret_key: 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
+       aws_access_key: access key 
+       aws_secret_key: secret key
        instance_profile_name: role1
 
