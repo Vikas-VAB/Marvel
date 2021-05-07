@@ -2,8 +2,8 @@
  - name: create a role
    iam_role:
           name: role1
-          aws_access_key: AKIAYOFIZIURMV4IO3M3
-          aws_secret_key: 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
+          aws_access_key: access key
+          aws_secret_key: secret key
           assume_role_policy_document: "{{ lookup('file','policy.json') }}"
           managed_policy: arn:aws:iam::aws:policy/AmazonS3FullAccess
           description: This is My New Role
