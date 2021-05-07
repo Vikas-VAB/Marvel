@@ -1,0 +1,68 @@
+---
+ - hosts: winhost
+   tasks:
+      
+     - name: Install Chocolatey on Windows
+       win_chocolatey:
+               name: procexp
+               state: present
+       when: ansible_os_family == 'Windows'
+
+     - name: install chrome
+       win_chocolatey:
+               name: googlechrome
+               state: present
+       when: ansible_os_family == 'Windows'
+
+     - name: Ensure anydesk.install installed
+       win_chocolatey:
+               name: anydesk.install
+               state: present
+       when: ansible_os_family == 'Windows'
+
+
+
+     - name: Ensure visualstudio2019community installed
+       win_chocolatey:
+                 name: visualstudio2019community
+                 state: present
+
+     - name: Ensure openoffice installed
+       win_chocolatey:
+                name: openoffice
+                state: present
+
+     - name: Ensure skype installed
+       win_chocolatey:
+                name: skype
+                state: present
+
+
+     - name: Ensure mysql installed
+       win_chocolatey:
+                name: mysql
+                state: present
+
+
+     - name: Ensure github-desktop installed
+       win_chocolatey:
+                name: github-desktop
+                state: present
+
+     - name: Ensure notepadplusplus installed
+       win_chocolatey:
+                name: notepadplusplus
+                state: present
+
+
+     - name: Ensure vscode.install installed
+       win_chocolatey:
+                name: vscode.install
+                state: present
+
+     - name: Ensure zoom installed
+       win_chocolatey:
+                name: zoom
+                state: present
+
+
