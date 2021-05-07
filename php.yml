@@ -1,0 +1,116 @@
+---
+- hosts: webservers
+  become: yes
+  tasks:
+
+       - name: install unzip
+         apt:
+            name: unzip
+            state: latest
+         when: ansible_os_family == 'Debian'
+
+       - name: download chrome on ubuntu
+         command: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+         when: ansible_os_family == 'Debian'
+
+       - name: install chrome on ubuntu
+         command: dpkg -i google-chrome-stable_current_amd64.deb
+         when: ansible_os_family == 'Debian'
+         become: yes
+
+
+
+       - name: install firefox on ubuntu
+         apt:
+            name: firefox
+            state: latest
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+
+
+       - name: install thunderbird on ubuntu
+         apt:
+            name: thunderbird
+            state: latest
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+
+
+       - name: download skype on ubuntu
+         command: wget https://go.skype.com/skypeforlinux-64.deb
+         when: ansible_os_family == 'Debian'
+
+       - name: install skype on ubuntu
+         shell: dpkg -i ./skypeforlinux-64.deb
+         when: ansible_os_family == 'Debian'
+         become: yes
+
+
+       - name: install git packeges
+         apt:
+            name: git
+            state: latest
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+
+       - name: download file for anydesk
+         shell: wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add -
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+       - name: add repository
+         shell: echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+       - name: install anydesk
+         shell: apt install anydesk
+         become: yes
+         when: ansible_os_family == 'Debian'
+
+
+       - name: install apache
+         apt: 
+            name: apache2  
+            state: present
+         become: yes
+
+       - name: install mysql
+         apt: 
+            name: mysql-server
+            state: present
+         become: yes
+
+       - name: install php
+         apt: 
+            name: php 
+            state: present
+       - name: install libapache2
+         apt: 
+            name: libapache2-mod-php
+       - name: install phpmysql
+         apt: 
+            name: php-mysql 
+            state: present
+       - name: install python
+         apt: 
+            name: python3-pymysql 
+            state: present
+         become: yes
+
+       - name: install phpmyadmin
+         apt:
+            name: phpmyadmin
+            state: present
+         become: yes
+
+       - name: install php-mbstring
+         apt:
+            name: php-mbstring
+            state: present
+         become: yes
+ 
+
