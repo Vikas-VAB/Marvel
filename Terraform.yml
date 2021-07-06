@@ -1,0 +1,20 @@
+---
+ - hosts: localhost
+   become: yes
+   vars_prompt:
+    - name: "platform"
+      prompt: "Which platform do you want?"
+      private: no
+
+   tasks:
+        - name: Run aws platform script
+          shell: terraform apply --auto-approve 
+          args:
+             chdir: /root/terraform/Demo1/
+          when: platform == 'amazon'
+
+        - name: Run google platform script
+          shell: terraform apply --auto-approve
+          args:
+             chdir: /root/terraform/demo2/
+          when: platform == 'google'
