@@ -1,0 +1,6 @@
+---
+# tasks file for awsrole
+ - import_tasks: s3.yml
+ - import_tasks: role.yml
+ - import_tasks: ec2.yml
+
