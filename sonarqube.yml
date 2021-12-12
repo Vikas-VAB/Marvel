@@ -1,0 +1,46 @@
+---
+ - hosts: all
+   become: yes
+   pre_tasks:
+       - name: Execute the postgresql install script 
+         script: postgres.sh
+         become: yes
+
+       - name: update
+         shell: apt-get update -y
+         become: yes
+
+       - name: install prequisites
+         become: yes
+         apt: 
+             name: "{{ item }}"
+             state: present
+         with_items:
+                 - openjdk-11-jdk
+                 - unzip
+   roles:
+       - ansible-role-sonarqube
+   tasks:
+
+       - name: line insert
+         become: true
+         blockinfile:
+           backup: true
+           block: |
+               sonar.jdbc.username=sonar
+               sonar.jdbc.password=sonarqube
+               sonar.jdbc.url=jdbc:postgresql://localhost:5432/sonarqube
+           path: /opt/sonarqube/sonarqube-7.3/conf/sonar.properties
+
+       - name: Exampel of commenting a line in Ansible.
+         replace:
+            path: /opt/sonarqube/sonarqube-7.3/conf/sonar.properties
+            regexp: 'sonar.embeddedDatabase.port=9092'
+            replace: '#sonar.embeddedDatabase.port=9092'
+      
+
+
+
+ 
+
+
